@@ -3,12 +3,15 @@
 A wrapper of [github.com/google/uuid](https://github.com/google/uuid) and provides deployable serverless handler on [@vercel](https://github.com/vercel).
 
 ## Using this as a Go library
+
 Get it using `go get`:
+
 ```sh
 go get -u github.com/husniadil/uuid
 ```
 
 Import it from your code:
+
 ```go
 import "github.com/husniadil/uuid/uuid"
 
@@ -39,7 +42,23 @@ metadata, err := uuid.Parse("a51a2ef7-f80d-4152-bdbd-abeb6579ee3d")
 ```
 
 ## Deployment on vercel
+
 Import this repo on vercel, no fancy settings are required. For more detail, refer to the [Vercel Go Runtime](https://vercel.com/docs/runtimes#official-runtimes/go) docs.
 
+## Accessing the API
+
+Example API usage:
+
+```sh
+curl https://uuid.stringjet.com/api?version=1
+c36d3f23276511eb90cc12aef3bc466d
+
+curl https://uuid.stringjet.com/api?version=5&namespace=url&data=https://uuid.stringjet.com
+8cf608d865bf54d7a97c140553e82e6e
+```
+
+For more information, please refer to the [api](https://github.com/husniadil/uuid/tree/main/api) package.
+
 ## For reading
+
 https://en.wikipedia.org/wiki/Universally_unique_identifier#Versions
