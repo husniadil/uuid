@@ -11,6 +11,11 @@ import (
 
 // ParseUUIDMetadata parses uuid metadata.
 func ParseUUIDMetadata(w http.ResponseWriter, r *http.Request) {
+	allowCORS(w)
+	if r.Method == http.MethodOptions {
+		w.WriteHeader(http.StatusOK)
+	}
+
 	paramUUID := r.URL.Query().Get("uuid")
 	metadata, err := uuid.Parse(paramUUID)
 	if err != nil {

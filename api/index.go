@@ -12,6 +12,7 @@ import (
 )
 
 const defaultMaxSize = 500
+const defaultAllowOrigin = "*"
 
 func getMaxSize() int {
 	strMaxSize := os.Getenv("MAX_SIZE")
@@ -24,6 +25,11 @@ func getMaxSize() int {
 
 // GenerateUUID handles http requests.
 func GenerateUUID(w http.ResponseWriter, r *http.Request) {
+	allowCORS(w)
+	if r.Method == http.MethodOptions {
+		w.WriteHeader(http.StatusOK)
+	}
+
 	strVersion := r.URL.Query().Get("version")
 	version, err := strconv.Atoi(strVersion)
 	if err != nil {
@@ -111,4 +117,15 @@ func generateFileName(version int) string {
 func generateFileSize(size int, firstUUID string) int {
 	fileSize := (len(firstUUID) + 1) * size
 	return fileSize
+}
+
+func allowCORS(w http.ResponseWriter) {
+	allowOrigin := os.Getenv("ACCESS_CONTROL_ALLOW_ORIGIN")
+	if allowOrigin == "" {
+		allowOrigin = defaultAllowOrigin
+	}
+	w.Header().Add("Access-Control-Allow-Credentials", "true")
+	w.Header().Add("Access-Control-Allow-Origin", allowOrigin)
+	w.Header().Add("Access-Control-Allow-Methods", "GET,OPTIONS,PATCH,DELETE,POST,PUT")
+	w.Header().Add("Access-Control-Allow-Headers", "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version")
 }
