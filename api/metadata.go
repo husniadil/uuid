@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/husniadil/uuid"
+	"github.com/husniadil/uuid/uuid"
 )
 
 // ParseUUIDMetadata parses uuid metadata.

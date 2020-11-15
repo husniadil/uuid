@@ -8,7 +8,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/husniadil/uuid"
+	"github.com/husniadil/uuid/uuid"
 )
 
 const defaultMaxSize = 500
