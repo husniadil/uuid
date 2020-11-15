@@ -64,6 +64,11 @@ func GenerateUUID(w http.ResponseWriter, r *http.Request) {
 
 	data := r.URL.Query().Get("data")
 
+	var download bool = false
+	if _, ok := r.URL.Query()["download"]; ok {
+		download = true
+	}
+
 	req := uuid.Request{
 		Version:   version,
 		Domain:    domain,
@@ -82,8 +87,28 @@ func GenerateUUID(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, err)
 		return
 	}
+	if download {
+		fileName := generateFileName(version)
+		fileSize := generateFileSize(size, uuids[0])
+		w.Header().Add("Content-Type", "text/plain; charset=utf-8")
+		w.Header().Add("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s\"", fileName))
+		w.Header().Add("Content-Length", strconv.Itoa(fileSize))
+	}
 	w.WriteHeader(http.StatusOK)
 	for _, uuid := range uuids {
 		fmt.Fprintln(w, uuid)
 	}
+}
+
+func generateFileName(version int) string {
+	fileName := "nil_uuid.txt"
+	if version > 0 {
+		fileName = fmt.Sprintf("version%d_uuid.txt", version)
+	}
+	return fileName
+}
+
+func generateFileSize(size int, firstUUID string) int {
+	fileSize := (len(firstUUID) + 1) * size
+	return fileSize
 }
