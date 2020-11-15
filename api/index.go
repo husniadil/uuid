@@ -1,4 +1,4 @@
-// Package api contains a handler for serverless function for vercel.
+// Package api contains handlers for serverless functions deployed on vercel.
 package api
 
 import (
