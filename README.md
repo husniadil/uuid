@@ -41,10 +41,6 @@ metadata, err := uuid.Parse("a51a2ef7-f80d-4152-bdbd-abeb6579ee3d")
 ...
 ```
 
-## Deployment on vercel
-
-Import this repo on vercel, no fancy settings are required. For more detail, refer to the [Vercel Go Runtime](https://vercel.com/docs/runtimes#official-runtimes/go) docs.
-
 ## Accessing the API
 
 Example API usage:
@@ -58,6 +54,10 @@ curl https://uuid.stringjet.com/api?version=5&namespace=url&data=https://uuid.st
 ```
 
 For more information, please refer to the [api](https://github.com/husniadil/uuid/tree/main/api) package.
+
+## Deploy your own
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/husniadil/uuid)
 
 ## For reading
 
